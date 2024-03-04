@@ -65,11 +65,11 @@ async function async_task(event){
 </script>
 ```
 
-To modify the content of the loader, define a template in the body of your document with an id of *jg_loader_content*.
+There is a default loader for when no custom content is defined.  To customize the content of the loader, define a template in the body of your document with an id of *jg_loader_content*.
 
 ```html
 <template id="jg_loader_content">
-    <i class="fa-solid fa-sm fa-x"></i>
+    <i class="fa-solid fa-xl fa-gear"></i>
 </template>
 ```
 
