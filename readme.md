@@ -69,7 +69,7 @@ There is a default loader for when no custom content is defined.  To customize t
 
 ```html
 <template id="jg_loader_content">
-    <i class="fa-solid fa-xl fa-gear"></i>
+    <i class="fa-solid fa-xl fa-gear fa-spin"></i>
 </template>
 ```
 
