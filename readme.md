@@ -51,6 +51,7 @@ jg_loader.js is a simple script containing a single function: *jg_get_loader*.  
 
 <script>
 async function async_task(event){
+
     let container = document.getElementById('loader_container')
     let loader = jg_get_loader()
     container.innerHTML = ""
