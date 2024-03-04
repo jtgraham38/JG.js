@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', (e)=>{
 
 /*
 This function gets a loader that can be added to any element on the screen.
-It creates it from the template
+It creates its content from the template with the id in JG_LOADER_CONTENT_ID.
+It can be styled by targeting the class name found in JG_LOADER_CLASSNAME.
 */
 function jg_get_loader(){
     //create loader
@@ -50,11 +51,4 @@ function jg_get_loader(){
 
     //return it
     return loader
-}
-
-/*
-
-*/
-async function jg_async_loader_task(event){
-
 }
