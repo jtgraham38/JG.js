@@ -3,19 +3,29 @@ const JG_DIALOG_CLASSNAME = "jg_modal"                 //classname for dialogs t
 const JG_CLOSE_CONTENT_ID = "jg_close_btn_content"         //id for the template used to define the content of the close button
 const JG_CLOSE_BTN_CLASSNAME = "jg_modal_close_btn"        //classname for the close button generated in the modal
 const JG_OPEN_BUTTON_ATTRNAME = "jg_open"    //attribute name that holds the id of the dialog to open 
-const JG_MODAL_DEFAULT_STYLE = `
-.${JG_DIALOG_CLASSNAME} {
-    border: 4px solid lightslategray;
-    border-top: 4px solid darkslategray;
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
-    animation: jg_loader_spin 1s linear infinite;
+const JG_MODAL_STYLE = `
+.${JG_CLOSE_BTN_CLASSNAME} {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 0.25rem;
+    margin-right: 0.25rem;
+    border: none;
+    background: none;
+    margin-bottom: 0;
+    margin-left: 0;
+    font-size: large;
 }
+
 `   // style applied to the default modal close button
 
 //call functions
 document.addEventListener('DOMContentLoaded', (e)=>{
+    //add spin animation style to the document
+    let modal_style = document.createElement('style')
+    modal_style.innerText = JG_MODAL_STYLE
+    document.head.appendChild(modal_style)
+    //add close buttons and open triggers
     jg_add_modal_close_button()
     jg_make_elements_trigger_open()
 })
@@ -34,16 +44,6 @@ function jg_add_modal_close_button(){
 
         //create close button
         let btn = document.createElement('button')
-        btn.style.position = "absolute"
-        btn.style.top = "0"
-        btn.style.right = "0"
-        btn.style.marginTop = "0.25rem"
-        btn.style.marginRight = "0.25rem"
-        btn.style.border = "none"
-        btn.style.background = "none"
-        btn.style.marginBottom = "none"
-        btn.style.marginLeft = "none"
-        btn.style.fontSize = "large"
         btn.classList.add(JG_CLOSE_BTN_CLASSNAME)
         
         //add button content
