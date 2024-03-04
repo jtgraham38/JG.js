@@ -40,3 +40,7 @@ If you wish to modify the html content of the close button (by default it is a s
 ```
 
 If you want to style the close button, simply target the *jg_modal_close_btn* class.
+
+## JG Loader (jg_loader.js)
+
+TODO:
