@@ -1,8 +1,18 @@
 //define constants
-const DIALOG_CLASSNAME = "jg_modal"                 //classname for dialogs that should be affected by this script
-const CLOSE_CONTENT_ID = "jg_close_btn_content"         //id for the template used to define the content of the close button
-const CLOSE_BTN_CLASSNAME = "jg_modal_close_btn"        //classname for the close button generated in the modal
-const OPEN_BUTTON_ATTRNAME = "jg_open"    //attribute name that holds the id of the dialog to open 
+const JG_DIALOG_CLASSNAME = "jg_modal"                 //classname for dialogs that should be affected by this script
+const JG_CLOSE_CONTENT_ID = "jg_close_btn_content"         //id for the template used to define the content of the close button
+const JG_CLOSE_BTN_CLASSNAME = "jg_modal_close_btn"        //classname for the close button generated in the modal
+const JG_OPEN_BUTTON_ATTRNAME = "jg_open"    //attribute name that holds the id of the dialog to open 
+const JG_MODAL_DEFAULT_STYLE = `
+.${JG_DIALOG_CLASSNAME} {
+    border: 4px solid lightslategray;
+    border-top: 4px solid darkslategray;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    animation: jg_loader_spin 1s linear infinite;
+}
+`   // style applied to the default modal close button
 
 //call functions
 document.addEventListener('DOMContentLoaded', (e)=>{
@@ -12,12 +22,12 @@ document.addEventListener('DOMContentLoaded', (e)=>{
 
 /* 
 This function adds a close button to all modals on the page with the CLOSE_CLASSNAME class.
-The default style creates an x button using the html time character.  To modify the close button content, define a template with the id CLOSE_CONTENT_ID.
-The close button can be styled by targeting the CLOSE_BTN_CLASSNAME class in css.
+The default style creates an x button using the html time character.  To modify the close button content, define a template with the id JG_CLOSE_CONTENT_ID.
+The close button can be styled by targeting the JG_CLOSE_BTN_CLASSNAME class in css.
 */
 function jg_add_modal_close_button(){
     //get all modals with jg_close class
-    let modals = Array.from(document.querySelectorAll('dialog.' + DIALOG_CLASSNAME))
+    let modals = Array.from(document.querySelectorAll('dialog.' + JG_DIALOG_CLASSNAME))
 
     //create close button in each button
     modals.map((modal)=>{
@@ -34,12 +44,12 @@ function jg_add_modal_close_button(){
         btn.style.marginBottom = "none"
         btn.style.marginLeft = "none"
         btn.style.fontSize = "large"
-        btn.classList.add(CLOSE_BTN_CLASSNAME)
+        btn.classList.add(JG_CLOSE_BTN_CLASSNAME)
         
         //add button content
-        let template = document.getElementById(CLOSE_CONTENT_ID)
+        let template = document.getElementById(JG_CLOSE_CONTENT_ID)
         if (template){
-            btn_content = document.importNode(template.content, true)
+            let btn_content = document.importNode(template.content, true)
             btn.appendChild(btn_content)
         }
         else
@@ -60,8 +70,8 @@ This function automatically makes a button that should open a modal open it upon
 Set jg_open equal to the id of the dialog you want that button to open.
 */
 function jg_make_elements_trigger_open(){
-    //get buttons with the OPEN_BUTTON_ATTRNAME attribute
-    let btns = Array.from(document.querySelectorAll('button[' + OPEN_BUTTON_ATTRNAME + ']'))
+    //get buttons with the JG_OPEN_BUTTON_ATTRNAME attribute
+    let btns = Array.from(document.querySelectorAll('button[' + JG_OPEN_BUTTON_ATTRNAME + ']'))
 
     btns.map((btn)=>{
 
@@ -71,7 +81,7 @@ function jg_make_elements_trigger_open(){
         //if dialog exists, add open functionality
         if (modal){
             btn.addEventListener('click', (event)=>{
-                if (modal.tagName === 'DIALOG' && modal.classList.contains(DIALOG_CLASSNAME))
+                if (modal.tagName === 'DIALOG' && modal.classList.contains(JG_DIALOG_CLASSNAME))
                 modal.showModal()
             })
         }
