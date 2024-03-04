@@ -24,7 +24,7 @@ Specify that a dialog element should be targeted by jg_modal.js by adding the *j
 ```
 When the "Show Modal" button is clicked, the modal will be opened.  When it opens, you will see that a working close button was automatically generated for the modal by jg_modal.js.
 
-It turns out, jg_modal.js has an esier way to specify that a button should open a modal.  Replace the "Show Modal" buttton with this one:
+It turns out, jg_modal.js has an easier way to specify that a button should open a modal.  Replace the "Show Modal" buttton with this one:
 ```html
 <button jg_open="dialog1">Show Modal</button>
 ```
@@ -43,4 +43,34 @@ If you want to style the close button, simply target the *jg_modal_close_btn* cl
 
 ## JG Loader (jg_loader.js)
 
-TODO:
+jg_loader.js is a simple script containing a single function: *jg_get_loader*.  This function creates a loader element, and returns the object, where it can then be used however the programmer desires within the javascript.
+```html
+<button onclick="async_task(event)">Show Modal</button>
+
+<div id="loader_container"></div>
+
+<script>
+async function async_task(event){
+    let container = document.getElementById('loader_container')
+    let loader = jg_get_loader()
+    container.innerHTML = ""
+    container.appendChild(loader)
+
+    //execute some async task here...
+
+    container.innerHTML = ""
+
+    //do something with the result
+}
+</script>
+```
+
+To modify the content of the loader, define a template in the body of your document with an id of *jg_loader_content*.
+
+```html
+<template id="jg_loader_content">
+    <i class="fa-solid fa-sm fa-x"></i>
+</template>
+```
+
+To style the loader content, target the *jg_loader* class.
