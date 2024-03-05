@@ -6,7 +6,8 @@ This repo is a collection of utility scripts developed by Jacob Graham to speed 
 * Ajax form submission.
 * Honeypot input.
 * Loader. ✅
-* Ajax flash message shower.
+* Ajax request functions.
+* Toast/alert system.
 
 This is an ongoing project.
 
