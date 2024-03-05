@@ -24,7 +24,7 @@ Specify that a dialog element should be targeted by jg_modal.js by adding the *j
 ```
 When the "Show Modal" button is clicked, the modal will be opened.  When it opens, you will see that a working close button was automatically generated for the modal by jg_modal.js.
 
-It turns out, jg_modal.js has an easier way to specify that a button should open a modal.  Replace the "Show Modal" buttton with this one:
+It turns out, jg_modal.js has an easier way to specify that a button should open a modal.  Replace the "Show Modal" button with this one:
 ```html
 <button jg_open="dialog1">Show Modal</button>
 ```
