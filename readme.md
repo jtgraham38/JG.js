@@ -75,3 +75,7 @@ There is a default loader for when no custom content is defined.  To customize t
 ```
 
 To style the loader content, target the *jg_loader* class.
+
+## JG Honeypot (jg_honeypot.js)
+
+todo
