@@ -98,3 +98,42 @@ To use the features of this script, all you need to do is apply the *jg_honeypot
 ```
 
 Note that if you inspect a form protected by jg_honeypot.js, the name atttributes of your original inputs will be changed.  This is normal, it is jg_honeypot.js masking the true names of those inputs to bots so that the honeypot inputs look more appealing to them.  Upon submitting the form, jg_honeypot.js will automatically rectify the input names so your form works as expected.
+
+## JG Ajax Form (jg_ajax_form.js)
+
+todo
+
+## Including in Your Page
+
+To include these scripts in your webpage, paste the following links into the head of your html document:
+
+* jg_modal.js
+```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_modal.js"></script>
+```
+  
+* jg_ajax_form.js
+```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_ajax_form.js"></script>
+```
+  
+* jg_honeypot.js
+* ```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_honeypot.js"></script>
+```
+  
+* jg_loader.js
+```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_loader.js"></script>
+```
+
+* jg_alerts.js
+```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_alerts.js"></script>
+```
+
+Their effects will be applied to the webpage automatically.
+
+## Thank You
+
+I hope you find these utility scripts to be useful.  If you do, please give this repo a ⭐ to show your support.  Keep up with me, Jacob Graham, and the projects I'm working on using my [website](https://jacob-t-graham.com/).
