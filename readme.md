@@ -118,7 +118,7 @@ To include these scripts in your webpage, paste the following links into the hea
 ```
   
 * jg_honeypot.js
-* ```html
+```html
 <script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_honeypot.js"></script>
 ```
   
