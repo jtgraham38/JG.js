@@ -7,6 +7,7 @@ This repo is a collection of utility scripts developed by Jacob Graham to speed 
 * Honeypot input. ✅
 * Loader. ✅
 * Toast/alert system.
+* Stripe input generation.
 
 This is an ongoing project.
 
@@ -100,6 +101,48 @@ To use the features of this script, all you need to do is apply the *jg_honeypot
 Note that if you inspect a form protected by jg_honeypot.js, the name atttributes of your original inputs will be changed.  This is normal, it is jg_honeypot.js masking the true names of those inputs to bots so that the honeypot inputs look more appealing to them.  Upon submitting the form, jg_honeypot.js will automatically rectify the input names so your form works as expected.
 
 ## JG Ajax Form (jg_ajax_form.js)
+
+jg_ajax_form.js makes it easy to submit a form via an ajax request, without refreshing the page.  To submit a form using an ajax GET request, simply set the method of the form to *jg_ajax_get*.
+
+```html
+<form action="/" method="jg_ajax_get">
+    <label for="name_input">Name</label>
+    <input type="text" id="name_input" name="name">
+
+    <label for="email_input">Email</label>
+    <input type="email" id="email_input" name="email">
+
+    <label for="message_input">Message</label>
+    <input type="text" id="message_input" name="message">
+
+    <input type="submit" value="submit">
+</form>
+```
+
+TODO: jg_ajax_post HERE!
+
+You may want to do something with the result returned by the request.  To do that, simply set the *jg_ajax_response_handler* attribute on the form equal to a javascript function handle.  This function accepts two parameters, *event* (the form onsubmit event), and *response* (the data returned by the async request), so be sure your handler accepts those two arguments in that order.
+
+```html
+<form action="/" method="jg_ajax_get" jg_ajax_response_handler="handler">
+    
+    <!-- form fields here -->
+
+    <input type="submit" value="submit">
+</form>
+
+<script>
+function handler(event, response){
+    console.log(response)
+
+    //perform some task here
+}
+</script>
+```
+
+The handler is defined identically on a form that uses the *jg_ajax_post* method.
+
+## JG Stripe (jg_stripe.js)
 
 todo
 
