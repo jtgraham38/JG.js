@@ -6,7 +6,7 @@ const JG_HONEYPOT_DIVERTER_STRING = generate_random_string(12) //string to appen
 const JG_HONEYPOT_CLASSNAME = "jg_honeypot"                    //classname to hide honeypot inputs
 const JG_HONEYPOT_FORM_CLASSNAME = "jg_honeypot_form"          //classname applied to forms honeypot inputs should be added to
 const JG_HONEYPOT_GOOD_INPUT_MARKER = "jg_honeypot_good_input" //class automatically applied to inputs that were renamed so we know to reset their names on form submit
-const JG_HONEYPOT_STATUS_INPUT = "jg_honeypot_failed"             //name of the input added automatically that tells whether a honeypot input was filled out, check this on your server!
+const JG_HONEYPOT_STATUS_INPUT = "jg_honeypot_suspects_bot"             //name of the input added automatically that tells whether a honeypot input was filled out, check this on your server!
 
 const JG_HONEYPOT_STYLE = `
 .${JG_HONEYPOT_CLASSNAME} {
@@ -73,17 +73,13 @@ function jg_add_honeypots(){
         //add onsubmit event listener to form to...
         form.addEventListener('submit', (event)=>{
             event.preventDefault()
-
-            //get formdata to submit
-            let form_data = new FormData(event.target)
-            form_data.set("blah", "blegh")
             
-            let honeypot_failed = false //whether the honeypot check failed
+            let suspects_bot = false //whether the honeypot check failed
             let inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
             inputs.map((input)=>{   //inputs is fromt the beginning of this function
                 //check and remove honeypot inputs
                 if (input.classList.contains(JG_HONEYPOT_CLASSNAME)){
-                    if (input.value != "") honeypot_failed = true
+                    if (input.value != "") suspects_bot = true
                     input.remove()
                 }
                 //return names of old inputs to their originals
@@ -96,26 +92,20 @@ function jg_add_honeypots(){
 
             //check default honeypot input
             if (honeypot.classList.contains(JG_HONEYPOT_CLASSNAME)){    //"honeypot" is defined earlier in the function
-                if (honeypot.value != "") honeypot_failed = true
+                if (honeypot.value != "") suspects_bot = true
                 honeypot.remove()
             }
             
             //add input for whether the the honeypot check failed
-            let hp_failed_input = document.createElement('input')
-            hp_failed_input.type = 'hidden'
-            hp_failed_input.name = JG_HONEYPOT_STATUS_INPUT
-            form.appendChild(hp_failed_input)
-            if (honeypot_failed){
-                hp_failed_input.value = true
+            let hp_suspects_bot_input = document.createElement('input')
+            hp_suspects_bot_input.type = 'hidden'
+            hp_suspects_bot_input.name = JG_HONEYPOT_STATUS_INPUT
+            form.appendChild(hp_suspects_bot_input)
+            if (suspects_bot){
+                hp_suspects_bot_input.value = true
             }else{
-                hp_failed_input.value = false
+                hp_suspects_bot_input.value = false
             }
-
-            const form_obj = {};
-            form_data.forEach((value, key) => {
-                form_obj[key] = value;
-            });
-            console.log(form_obj)
 
             form.submit()
         })
