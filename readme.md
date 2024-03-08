@@ -6,7 +6,7 @@ This repo is a collection of utility scripts developed by Jacob Graham to speed 
 * Ajax form submission.
 * Honeypot input. ✅
 * Loader. ✅
-* Toast/alert system.
+* Toast/alert system. (coming soon?)
 * Stripe input generation.
 
 This is an ongoing project.
@@ -142,13 +142,17 @@ function handler(event, response){
 
 The handler is defined identically on a form that uses the *jg_ajax_post* method.
 
-## JG Stripe (jg_stripe.js)
+## JG Stripe (jg_stripe_charge_input.js)
 
 todo
 
+## JG Alerts (jg_alerts.js)
+
+Coming Soon
+
 ## Including in Your Page
 
-To include these scripts in your webpage, paste the following links into the head of your html document:
+For now, to include these scripts in your webpage, paste the following links into the head of your html document:
 
 * jg_modal.js
 ```html
@@ -170,10 +174,16 @@ To include these scripts in your webpage, paste the following links into the hea
 <script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_loader.js"></script>
 ```
 
+* jg_stripe_charge_input.js
+```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_stripe_charge_input.js"></script>
+```
+
 * jg_alerts.js
 ```html
 <script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_alerts.js"></script>
 ```
+
 
 Their effects will be applied to the webpage automatically.
 

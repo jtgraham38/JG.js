@@ -20,8 +20,6 @@ const JG_HONEYPOT_STYLE = `
 }
 `   //styling to hide the honeypot input
 
-//animation used by the default loader
-
 //call functions
 document.addEventListener('DOMContentLoaded', (e)=>{
     //add spin animation style to the document
