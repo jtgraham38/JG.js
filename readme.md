@@ -119,7 +119,16 @@ jg_ajax_form.js makes it easy to submit a form via an ajax request, without refr
 </form>
 ```
 
-TODO: jg_ajax_post HERE!
+To submit the form using an ajax POST request, simply switch the method to *jg_ajax_post*.
+
+```html
+<form action="/" method="jg_ajax_post">
+    
+    <!-- form fields here -->
+
+    <input type="submit" value="submit">
+</form>
+```
 
 You may want to do something with the result returned by the request.  To do that, simply set the *jg_ajax_response_handler* attribute on the form equal to a javascript function handle.  This function accepts two parameters, *event* (the form onsubmit event), and *response* (the data returned by the async request), so be sure your handler accepts those two arguments in that order.
 
