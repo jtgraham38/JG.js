@@ -1,7 +1,6 @@
 //define constants
 const JG_AJAX_GET_FORM_METHOD = 'jg_ajax_get' //method used for forms that should be via ajax get
 const JG_AJAX_POST_FORM_METHOD = 'jg_ajax_post' //method used for forms that should be via ajax post
-const JG_AJAX_POST_FORM_METHOD = 'jg_ajax_post' //method used for forms that should be via ajax post
 const JG_AJAX_RESPONSE_HANDLER_ATTRNAME = 'jg_ajax_response_handler' //attribute used to specify a function to handle the response from an ajax request
 
 //animation used by the default loader
