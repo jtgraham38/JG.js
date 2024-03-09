@@ -1,6 +1,9 @@
 //must include stripe for this scirpt to work: <script src="https://js.stripe.com/v3/"></script>
-const CARD_INPUT_CONTAINER_ID = "jg_stripe_card_container"
-const STRIPE_PUBLIC_KEY_VARNAME = "jg_stripe_public_key"
+const JG_CARD_INPUT_CONTAINER_ID = "jg_stripe_card_container"
+const JG_STRIPE_PUBLIC_KEY_VARNAME = "jg_stripe_public_key"
+const JG_PAYMENT_FORM_ID = "jg_checkout_form"
+const JG_CARDHOLDER_NAME_INPUT_ID = "jg_card_holder_name_input"
+const JG_PAYMENT_METHOD_ID_INPUT_ID = "jg_payment_method_id_input"
 
 
 //call functions
@@ -11,16 +14,23 @@ document.addEventListener('DOMContentLoaded', (e)=>{
 
 function jg_create_stripe_card_input(){
     //create stripe inputs
-    const stripe = Stripe(window[STRIPE_PUBLIC_KEY_VARNAME])
+    const stripe = Stripe(window[JG_STRIPE_PUBLIC_KEY_VARNAME])
     
     const elements = stripe.elements();
     const card_element = elements.create('card');
     
-    card_element.mount('#' + CARD_INPUT_CONTAINER_ID);
+    card_element.mount('#' + JG_CARD_INPUT_CONTAINER_ID);
 
-    //TODO: get elements using passed in ids
-    const card_holder_name = document.getElementById('card_holder_name');
-    const payment_form = document.getElementById('checkout_form')
+    //get elements using passed in ids
+    const card_holder_name = document.getElementById(JG_CARDHOLDER_NAME_INPUT_ID);
+    const payment_form = document.getElementById(JG_PAYMENT_FORM_ID)
+
+    //add payment method id hidden input
+    const pmid_input = document.createElement('input')
+    pmid_input.type = 'hidden'
+    pmid_input.name = 'payment_method_id'
+    pmid_input.id = JG_PAYMENT_METHOD_ID_INPUT_ID
+    payment_form.appendChild(pmid_input)
     
 
     //submit the payment form
@@ -29,12 +39,14 @@ function jg_create_stripe_card_input(){
         event.preventDefault()
 
         //get payment method from stripe
-        const { payment_method, error } = await stripe.createPaymentMethod(
+        const response = await stripe.createPaymentMethod(
             'card', card_element, {
                 billing_details: { name: card_holder_name.value }
             }
         );
-    
+        payment_method = response.paymentMethod
+        error = response.error
+
         //respond based on success of stripe api call
         if (error) {
             //display "error.message" to the user...
@@ -43,7 +55,7 @@ function jg_create_stripe_card_input(){
             //the card has been verified successfully...
             console.log("verification success")
             console.log(payment_method)
-            document.getElementById('payment_method_id_input').value = payment_method.id
+            document.getElementById(JG_PAYMENT_METHOD_ID_INPUT_ID).value = payment_method.id
         }
 
         //submit the form
