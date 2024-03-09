@@ -190,32 +190,32 @@ For now, to include these scripts in your webpage, paste the following links int
 
 * jg_modal.js
 ```html
-<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_modal.js"></script>
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg_modal.js"></script>
 ```
   
 * jg_ajax_form.js
 ```html
-<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_ajax_form.js"></script>
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg_ajax_form.js"></script>
 ```
   
 * jg_honeypot.js
 ```html
-<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_honeypot.js"></script>
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg_honeypot.js"></script>
 ```
   
 * jg_loader.js
 ```html
-<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_loader.js"></script>
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg_loader.js"></script>
 ```
 
 * jg_stripe_charge_input.js
 ```html
-<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_stripe_charge_input.js"></script>
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg_stripe_charge_input.js"></script>
 ```
 
 * jg_alerts.js (Coming Soon)
 ```html
-<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/js/jg_alerts.js"></script>
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg_alerts.js"></script>
 ```
 
 
