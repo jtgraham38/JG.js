@@ -107,10 +107,8 @@ function jg_add_honeypots(){
             }
 
 
-            //if this form is not a jg_ajax_form, submit it
-            const jg_ajax_method = form.getAttribute('jg_ajax_method')
-            if (jg_ajax_method != 'GET' && jg_ajax_method != 'POST') 
-                form.submit()
+            //submit the form
+            form.submit()
         })
     })
 }

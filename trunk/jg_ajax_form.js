@@ -21,7 +21,6 @@ called with the submit event and the ajax response data passed in.
 function jg_apply_ajax_get(){
     //get forms
     let forms = Array.from(document.querySelectorAll(`form[${JG_AJAX_METHOD_ATTR_NAME}="GET"]`))
-    console.log("FAASDF", forms)
     //for each form...
     forms.map((form)=>{
       //add onsubmit event listener to form to submit form via ajax
