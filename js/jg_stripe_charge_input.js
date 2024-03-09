@@ -22,8 +22,9 @@ function jg_create_stripe_card_input(){
     card_element.mount('#' + JG_CARD_INPUT_CONTAINER_ID);
 
     //get elements using passed in ids
-    const card_holder_name = document.getElementById(JG_CARDHOLDER_NAME_INPUT_ID);
     const payment_form = document.getElementById(JG_PAYMENT_FORM_ID)
+    const card_holder_name = document.getElementById(JG_CARDHOLDER_NAME_INPUT_ID);
+    
 
     //add payment method id hidden input
     const pmid_input = document.createElement('input')
