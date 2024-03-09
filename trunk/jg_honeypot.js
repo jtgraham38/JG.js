@@ -106,8 +106,12 @@ function jg_add_honeypots(){
                 hp_suspects_bot_input.value = false
             }
 
-            //form.submit()
-        }, true)
+
+            //if this form is not a jg_ajax_form, submit it
+            const jg_ajax_method = form.getAttribute('jg_ajax_method')
+            if (jg_ajax_method != 'GET' && jg_ajax_method != 'POST') 
+                form.submit()
+        })
     })
 }
 

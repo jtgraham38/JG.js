@@ -1,8 +1,7 @@
 //mark for initialization
 window.jg_js[window.JG_AJAX_FORM_KEY] = true
 //define constants
-const JG_AJAX_GET_FORM_METHOD = 'jg_ajax_get' //method used for forms that should be via ajax get
-const JG_AJAX_POST_FORM_METHOD = 'jg_ajax_post' //method used for forms that should be via ajax post
+const JG_AJAX_METHOD_ATTR_NAME = 'jg_ajax_method' //attribute used to specify the method of an ajax form
 const JG_AJAX_RESPONSE_HANDLER_ATTRNAME = 'jg_ajax_response_handler' //attribute used to specify a function to handle the response from an ajax request
 
 //animation used by the default loader
@@ -15,20 +14,19 @@ function __init_jg_ajax_form(e){
 }
 
 /*
-This function finds all forms with the method in JG_AJAX_GET_FORM_METHOD and adds an event listener to submit the form via an ajax get request.
+This function finds all forms with JG_AJAX_METHOD_ATTR_NAME = 'get' and adds an event listener to submit the form via an ajax get request.
 When the request is done submitting, if there is an attribute JG_AJAX_RESPONSE_HANDLER_ATTRNAME set on the form element, that function will be
 called with the submit event and the ajax response data passed in.
 */
 function jg_apply_ajax_get(){
     //get forms
-    let forms = Array.from(document.querySelectorAll(`form[method=${JG_AJAX_GET_FORM_METHOD}]`))
-
+    let forms = Array.from(document.querySelectorAll(`form[${JG_AJAX_METHOD_ATTR_NAME}="GET"]`))
+    console.log("FAASDF", forms)
     //for each form...
     forms.map((form)=>{
       //add onsubmit event listener to form to submit form via ajax
         form.addEventListener('submit', async (event)=>{
             event.preventDefault()
-            console.log("ajax form event handler!")
 
             //get formdata to submit
             let form_data = new FormData(event.target)
@@ -55,12 +53,12 @@ function jg_apply_ajax_get(){
     });
 }
 /*
-This function finds all forms with the method in JG_AJAX_POST_FORM_METHOD and adds an event listener to submit the form via an ajax post request.
+This function finds all forms with JG_AJAX_METHOD_ATTR_NAME = 'post' and adds an event listener to submit the form via an ajax post request.
 */
 function jg_apply_ajax_post(){
     
     //get forms
-    let forms = Array.from(document.querySelectorAll(`form[method=${JG_AJAX_POST_FORM_METHOD}]`))
+    let forms = Array.from(document.querySelectorAll(`form[${JG_AJAX_METHOD_ATTR_NAME}="POST"]`))
 
     //for each form...
     forms.map((form)=>{
