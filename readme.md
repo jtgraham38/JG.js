@@ -11,6 +11,10 @@ This repo is a collection of utility scripts developed by Jacob Graham to speed 
 
 This is an ongoing project.
 
+## Getting Started
+
+To start using the modules in jg.js, it is crucial to include the jg.js script in your page.  It synchronizes the differnt features of this module and makes them play nicely together.  Refrain from modifying or calling any funtions in this module directly, as this could lead to undefined behavior.  After that, simply include other scripts from the jg.js module that you would like to use, and jg.js will automatically detect and call them.
+
 ## JG Modal (jg_modal.js)
 
 jg_modal.js automates many of the basic features involved in implementing modals.  It makes use of the html dialog element, and automates the process of making a button open the modal, and of inserting a close button inside the modal.
@@ -102,10 +106,10 @@ Note that if you inspect a form protected by jg_honeypot.js, the name atttribute
 
 ## JG Ajax Form (jg_ajax_form.js)
 
-jg_ajax_form.js makes it easy to submit a form via an ajax request, without refreshing the page.  To submit a form using an ajax GET request, simply set the method of the form to *jg_ajax_get*.
+jg_ajax_form.js makes it easy to submit a form via an ajax request, without refreshing the page.  To submit a form using an ajax GET request, simply set the *jg_ajax_method* attribute of the form to *GET* (case-sensitive, for now).
 
 ```html
-<form action="/" method="jg_ajax_get">
+<form action="/" jg_ajax_method="GET">
     <label for="name_input">Name</label>
     <input type="text" id="name_input" name="name">
 
@@ -119,10 +123,10 @@ jg_ajax_form.js makes it easy to submit a form via an ajax request, without refr
 </form>
 ```
 
-To submit the form using an ajax POST request, simply switch the method to *jg_ajax_post*.
+To submit the form using an ajax POST request, simply switch the *jg_ajax_method* attribute to *POST* (again, case-sensitive, for now).
 
 ```html
-<form action="/" method="jg_ajax_post">
+<form action="/" jg_ajax_method="POST">
     
     <!-- form fields here -->
 
@@ -187,6 +191,11 @@ Coming Soon
 ## Including in Your Page
 
 For now, to include these scripts in your webpage, paste the following links into the head of your html document:
+
+* jg.js
+```html
+<script defer src="https://raw.githubusercontent.com/jtgraham38/JG.js/main/tags/1.0.0/jg.js"></script>
+```
 
 * jg_modal.js
 ```html
