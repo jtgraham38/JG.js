@@ -1,5 +1,5 @@
-//generate diversion string
-
+//mark for initialization
+window.jg_js[window.JG_HONEYPOT_KEY] = true
 
 //define constants
 const JG_HONEYPOT_DIVERTER_STRING = generate_random_string(12) //string to append to the front of inputs to divert bots from detecting honeypots
@@ -20,16 +20,16 @@ const JG_HONEYPOT_STYLE = `
 }
 `   //styling to hide the honeypot input
 
-//call functions
-document.addEventListener('DOMContentLoaded', (e)=>{
+
+//this init function is called in jg.js, do not call it directly!
+function __init_jg_honeypot(e){
     //add spin animation style to the document
     let honeypot_style = document.createElement('style')
     honeypot_style.innerText = JG_HONEYPOT_STYLE
     document.head.appendChild(honeypot_style)
-
     //add honeypot inputs
     jg_add_honeypots()
-})
+}
 
 /*
 This function adds honeypot inputs to all forms with the classname in JG_HONEYPOT_FORM_CLASSNAME.
@@ -71,6 +71,7 @@ function jg_add_honeypots(){
         //add onsubmit event listener to form to...
         form.addEventListener('submit', (event)=>{
             event.preventDefault()
+            console.log("honeypot event handler!")
             
             let suspects_bot = false //whether the honeypot check failed
             let inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
@@ -105,8 +106,8 @@ function jg_add_honeypots(){
                 hp_suspects_bot_input.value = false
             }
 
-            form.submit()
-        })
+            //form.submit()
+        }, true)
     })
 }
 

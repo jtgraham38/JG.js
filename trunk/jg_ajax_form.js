@@ -1,3 +1,5 @@
+//mark for initialization
+window.jg_js[window.JG_AJAX_FORM_KEY] = true
 //define constants
 const JG_AJAX_GET_FORM_METHOD = 'jg_ajax_get' //method used for forms that should be via ajax get
 const JG_AJAX_POST_FORM_METHOD = 'jg_ajax_post' //method used for forms that should be via ajax post
@@ -5,12 +7,12 @@ const JG_AJAX_RESPONSE_HANDLER_ATTRNAME = 'jg_ajax_response_handler' //attribute
 
 //animation used by the default loader
 
-//call functions
-document.addEventListener('DOMContentLoaded', (e)=>{
+//this init function is called in jg.js, do not call it directly!
+function __init_jg_ajax_form(e){
     //apply ajax form submission to forms
     jg_apply_ajax_get()
     jg_apply_ajax_post()
-})
+}
 
 /*
 This function finds all forms with the method in JG_AJAX_GET_FORM_METHOD and adds an event listener to submit the form via an ajax get request.
@@ -26,6 +28,7 @@ function jg_apply_ajax_get(){
       //add onsubmit event listener to form to submit form via ajax
         form.addEventListener('submit', async (event)=>{
             event.preventDefault()
+            console.log("ajax form event handler!")
 
             //get formdata to submit
             let form_data = new FormData(event.target)

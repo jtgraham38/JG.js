@@ -1,3 +1,6 @@
+//mark for initialization
+window.jg_js[window.JG_STRIPE_CHARGE_INPUT_KEY] = true
+
 //must include stripe for this scirpt to work: <script src="https://js.stripe.com/v3/"></script>
 const JG_CARD_INPUT_CONTAINER_ID = "jg_stripe_card_container"
 const JG_STRIPE_PUBLIC_KEY_VARNAME = "jg_stripe_public_key"
@@ -6,11 +9,11 @@ const JG_CARDHOLDER_NAME_INPUT_ID = "jg_card_holder_name_input"
 const JG_PAYMENT_METHOD_ID_INPUT_ID = "jg_payment_method_id_input"
 
 
-//call functions
-document.addEventListener('DOMContentLoaded', (e)=>{
+//this init function is called in jg.js, do not call it directly!
+function __init_jg_stripe_charge_input(e){
     //add card inputs
     jg_create_stripe_card_input()
-})
+}
 
 function jg_create_stripe_card_input(){
     //create stripe inputs
