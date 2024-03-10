@@ -66,30 +66,30 @@ function jg_apply_ajax_post(){
         form.addEventListener('submit', async (event)=>{
             event.preventDefault()
 
-            //get formdata to submit
-            let form_data = new FormData(event.target)
-            const form_obj = {};
-            form_data.forEach((value, key) => {
-                form_obj[key] = value;
-            });
-
-            //get form action
-            const form_action = form.getAttribute('action');
-
-            //submit form data via ajax post request
-            const response = await fetch(form_action, {
-                method: 'POST',
-                body: JSON.stringify(form_obj)
-            })
-            const data = await response.json()
-
-            //call response handler function
-            const handler = eval(form.getAttribute(JG_AJAX_RESPONSE_HANDLER_ATTRNAME))
-            if (handler && typeof handler === 'function') handler(event, data)
-
             if (!event.jg_submitted && event.jg_form_submit == JG_AJAX_SUBMIT_KEY){
                 event.jg_submitted = true
-                console.log("ajax form submit")
+                
+
+                //get formdata to submit
+                let form_data = new FormData(event.target)
+                const form_obj = {};
+                form_data.forEach((value, key) => {
+                    form_obj[key] = value;
+                });
+
+                //get form action
+                const form_action = form.getAttribute('action');
+
+                //submit form data via ajax post request
+                const response = await fetch(form_action, {
+                    method: 'POST',
+                    body: JSON.stringify(form_obj)
+                })
+                const data = await response.json()
+
+                //call response handler function
+                const handler = eval(form.getAttribute(JG_AJAX_RESPONSE_HANDLER_ATTRNAME))
+                if (handler && typeof handler === 'function') handler(event, data)
             }
         });
 

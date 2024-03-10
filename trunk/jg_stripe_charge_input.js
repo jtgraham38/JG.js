@@ -67,7 +67,7 @@ function jg_create_stripe_card_input(){
         if (!event.jg_submitted && event.jg_form_submit == JG_STRIPE_SUBMIT_KEY){
             event.jg_submitted = true
             console.log("stripe form submit")
-            //event.target.submit()
+            event.target.submit()
         }
     });
 

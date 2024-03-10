@@ -111,7 +111,7 @@ function jg_add_honeypots(){
             if (!event.jg_submitted && event.jg_form_submit == JG_HONEYPOT_SUBMIT_KEY){
                 console.log("honeypot form submit")
                 event.jg_submitted = true
-                //event.target.submit()
+                event.target.submit()
             }
 
         }, false)
