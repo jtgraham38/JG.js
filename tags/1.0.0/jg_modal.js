@@ -1,3 +1,6 @@
+//mark for initialization
+window.jg_js[window.JG_MODAL_KEY] = true
+
 //define constants
 const JG_DIALOG_CLASSNAME = "jg_modal"                 //classname for dialogs that should be affected by this script
 const JG_CLOSE_CONTENT_ID = "jg_close_btn_content"         //id for the template used to define the content of the close button
@@ -19,8 +22,8 @@ const JG_MODAL_STYLE = `
 
 `   // style applied to the default modal close button
 
-//call functions
-document.addEventListener('DOMContentLoaded', (e)=>{
+//this init function is called in jg.js, do not call it directly!
+function __init_jg_modal(e){
     //add spin animation style to the document
     let modal_style = document.createElement('style')
     modal_style.innerText = JG_MODAL_STYLE
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     //add close buttons and open triggers
     jg_add_modal_close_button()
     jg_make_elements_trigger_open()
-})
+}
 
 /* 
 This function adds a close button to all modals on the page with the CLOSE_CLASSNAME class.

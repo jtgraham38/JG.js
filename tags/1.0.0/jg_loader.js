@@ -1,3 +1,6 @@
+//mark for initialization
+window.jg_js[window.JG_LOADER_KEY] = true
+
 //define constants
 const JG_LOADER_CLASSNAME = "jg_loader"                    //classname of outermost container of the loader content
 const JG_LOADER_DEFAULT_CLASSNAME = "jg_loader_default"    //classname applied to the outermost container of jg loaders when no customization of the content is added
@@ -20,13 +23,13 @@ const JG_LOADER_DEFAULT_STYLE = `
 
 //animation used by the default loader
 
-//call functions
-document.addEventListener('DOMContentLoaded', (e)=>{
+//this init function is called in jg.js, do not call it directly!
+function __init_jg_loader(e){
     //add spin animation style to the document
     let spin_style = document.createElement('style')
     spin_style.innerText = JG_LOADER_DEFAULT_STYLE
     document.head.appendChild(spin_style)
-})
+}
 
 
 /*

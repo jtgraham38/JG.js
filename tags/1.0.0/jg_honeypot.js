@@ -1,5 +1,5 @@
-//generate diversion string
-
+//mark for initialization
+window.jg_js[window.JG_HONEYPOT_KEY] = true
 
 //define constants
 const JG_HONEYPOT_DIVERTER_STRING = jg_generate_random_string(12) //string to append to the front of inputs to divert bots from detecting honeypots
@@ -7,6 +7,7 @@ const JG_HONEYPOT_CLASSNAME = "jg_honeypot"                    //classname to hi
 const JG_HONEYPOT_FORM_CLASSNAME = "jg_honeypot_form"          //classname applied to forms honeypot inputs should be added to
 const JG_HONEYPOT_GOOD_INPUT_MARKER = "jg_honeypot_good_input" //class automatically applied to inputs that were renamed so we know to reset their names on form submit
 const JG_HONEYPOT_STATUS_INPUT = "jg_honeypot_suspects_bot"             //name of the input added automatically that tells whether a honeypot input was filled out, check this on your server!
+const JG_HONEYPOT_SUBMIT_KEY = "jg_honeypot_submit"                        //key to mark that the form should be submitted by honeypot
 
 const JG_HONEYPOT_STYLE = `
 .${JG_HONEYPOT_CLASSNAME} {
@@ -20,16 +21,16 @@ const JG_HONEYPOT_STYLE = `
 }
 `   //styling to hide the honeypot input
 
-//call functions
-document.addEventListener('DOMContentLoaded', (e)=>{
+
+//this init function is called in jg.js, do not call it directly!
+function __init_jg_honeypot(e){
     //add spin animation style to the document
     let honeypot_style = document.createElement('style')
     honeypot_style.innerText = JG_HONEYPOT_STYLE
     document.head.appendChild(honeypot_style)
-
     //add honeypot inputs
     jg_add_honeypots()
-})
+}
 
 /*
 This function adds honeypot inputs to all forms with the classname in JG_HONEYPOT_FORM_CLASSNAME.
@@ -37,28 +38,38 @@ It adjusts the names of all real inputs to distract bots from them, then it crea
 in the form.  When the form is submitted, it adds a field to indicate whether the honeypot check failed, called the string
 in JG_HONEYPOT_STATUS_INPUT, then removes all the honeypot inputs and submits the form.
 */
+
+function jg_add_honeypot_input_copies(form, inputs){
+    //remove previous honeypot status inputs
+    const status_inputs = Array.from(form.querySelectorAll(`input[name="${JG_HONEYPOT_STATUS_INPUT}"]`)); //get all status inputs for honeypot check
+    status_inputs.map((input)=>{ input.remove() })
+
+    inputs.map((input)=>{
+        //add honeypot input copies of them
+        let hp_input = document.createElement('input')
+        hp_input.type = input.type
+        hp_input.autocomplete = "off"
+        hp_input.name = input.name
+        hp_input.classList.add(JG_HONEYPOT_CLASSNAME)
+        form.appendChild(hp_input)
+
+        //change their names with a string
+        input.name = JG_HONEYPOT_DIVERTER_STRING + input.name
+        input.classList.add(JG_HONEYPOT_GOOD_INPUT_MARKER)
+
+    })
+}
+
+
 function jg_add_honeypots(){
     //get forms
     let forms = Array.from(document.querySelectorAll("." + JG_HONEYPOT_FORM_CLASSNAME))
 
     //for each form...
     forms.map((form)=>{
-        //get all inputs of type text or email and
+        //add honeypot input copies of text or email inputs
         let inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
-        inputs.map((input)=>{
-            //add honeypot input copies of them
-            let hp_input = document.createElement('input')
-            hp_input.type = input.type
-            hp_input.autocomplete = "off"
-            hp_input.name = input.name
-            hp_input.classList.add(JG_HONEYPOT_CLASSNAME)
-            form.appendChild(hp_input)
-
-            //change their names with a string
-            input.name = JG_HONEYPOT_DIVERTER_STRING + input.name
-            input.classList.add(JG_HONEYPOT_GOOD_INPUT_MARKER)
-
-        })
+        jg_add_honeypot_input_copies(form, inputs)
 
         //add one extra honeypot text field for good measure (in case there are no text or email inputs)
         let honeypot = document.createElement('input')
@@ -105,8 +116,20 @@ function jg_add_honeypots(){
                 hp_suspects_bot_input.value = false
             }
 
-            form.submit()
-        })
+
+            //submit the form
+            if (!event.jg_submitted && event.jg_form_submit == JG_HONEYPOT_SUBMIT_KEY){
+                console.log("honeypot form submit")
+                event.jg_submitted = true
+                event.target.submit()
+            }
+
+        }, false)
+
+        //during the capture phase, mark that the form should be submitted by honeypot (this will fire before ajax and stripe due to the event listener order in jg.js)
+        form.addEventListener('submit', (event)=>{
+            event.jg_form_submit = JG_HONEYPOT_SUBMIT_KEY
+        }, true)
     })
 }
 
