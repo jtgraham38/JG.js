@@ -12,10 +12,15 @@ window.JG_ALERTS_KEY = 'jg_alerts'
 
 document.addEventListener('DOMContentLoaded', (e)=>{
 
+    /*
+    Note: in order to make jg_honeypot.js, jg_stripe_charge_input.js, and jg_ajax_form.js work, they are loaded in the order specified below.
+    This is because the event listeners in each script need to be added with jg_honeypot.js first, then jg_stripe_charge_input.js, then jg_ajax_form.js
+    since they all involve form submission and the event listeners are added in the order the scripts are loaded.
+    */
+
 
     //init jg_honeypot
     if (window.jg_js[JG_HONEYPOT_KEY]){
-        console.log("init jg_honeypot")
         try{
             __init_jg_honeypot(e)
         } catch (error) {
@@ -24,7 +29,6 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     }
     //init jg_stripe_charge_input
     if (window.jg_js[JG_STRIPE_CHARGE_INPUT_KEY]){
-        console.log("init jg_stripe_charge_input")
         try{
             __init_jg_stripe_charge_input(e)
         } catch (error) {
@@ -33,7 +37,6 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     }
     //init jg_ajax_form
     if (window.jg_js[JG_AJAX_FORM_KEY]){
-        console.log("init jg_ajax_form")
         try{
             __init_jg_ajax_form(e)
         } catch (error) {
@@ -42,7 +45,6 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     }
     //init jg_modal
     if (window.jg_js[JG_MODAL_KEY]){
-        console.log("init jg_modal")
         try {
             __init_jg_modal(e);
         } catch (error) {
@@ -51,7 +53,6 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     }
     //init jg_laoder
     if (window.jg_js[JG_LOADER_KEY]){
-        console.log("init jg_loader")
         try{
             __init_jg_loader(e)
         } catch (error) {
@@ -60,7 +61,6 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     }
     //init jg_alerts
     if (window.jg_js[JG_ALERTS_KEY]){
-        console.log("init jg_alerts")
         try{
             __init_jg_alerts(e)
         } catch (error) {
