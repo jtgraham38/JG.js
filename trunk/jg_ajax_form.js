@@ -92,6 +92,7 @@ function jg_apply_ajax_post(){
                 if (handler && typeof handler === 'function') handler(event, data)
 
                 //if the form was submitted by ajax, refresh the honeypot inputs
+                //NOTE: this part depends on the jg_honeypot.js script being loaded first, or else window.JG_HONEYPOT_KEY will be undefined
                 if (window.JG_HONEYPOT_KEY && form.classList.contains(JG_HONEYPOT_FORM_CLASSNAME)){
                     inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
                     jg_add_honeypot_input_copies(form, inputs)
