@@ -38,28 +38,38 @@ It adjusts the names of all real inputs to distract bots from them, then it crea
 in the form.  When the form is submitted, it adds a field to indicate whether the honeypot check failed, called the string
 in JG_HONEYPOT_STATUS_INPUT, then removes all the honeypot inputs and submits the form.
 */
+
+function jg_add_honeypot_input_copies(form, inputs){
+    //remove previous honeypot status inputs
+    const status_inputs = Array.from(form.querySelectorAll(`input[name="${JG_HONEYPOT_STATUS_INPUT}"]`)); //get all status inputs for honeypot check
+    status_inputs.map((input)=>{ input.remove() })
+
+    inputs.map((input)=>{
+        //add honeypot input copies of them
+        let hp_input = document.createElement('input')
+        hp_input.type = input.type
+        hp_input.autocomplete = "off"
+        hp_input.name = input.name
+        hp_input.classList.add(JG_HONEYPOT_CLASSNAME)
+        form.appendChild(hp_input)
+
+        //change their names with a string
+        input.name = JG_HONEYPOT_DIVERTER_STRING + input.name
+        input.classList.add(JG_HONEYPOT_GOOD_INPUT_MARKER)
+
+    })
+}
+
+
 function jg_add_honeypots(){
     //get forms
     let forms = Array.from(document.querySelectorAll("." + JG_HONEYPOT_FORM_CLASSNAME))
 
     //for each form...
     forms.map((form)=>{
-        //get all inputs of type text or email and
+        //add honeypot input copies of text or email inputs
         let inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
-        inputs.map((input)=>{
-            //add honeypot input copies of them
-            let hp_input = document.createElement('input')
-            hp_input.type = input.type
-            hp_input.autocomplete = "off"
-            hp_input.name = input.name
-            hp_input.classList.add(JG_HONEYPOT_CLASSNAME)
-            form.appendChild(hp_input)
-
-            //change their names with a string
-            input.name = JG_HONEYPOT_DIVERTER_STRING + input.name
-            input.classList.add(JG_HONEYPOT_GOOD_INPUT_MARKER)
-
-        })
+        jg_add_honeypot_input_copies(form, inputs)
 
         //add one extra honeypot text field for good measure (in case there are no text or email inputs)
         let honeypot = document.createElement('input')

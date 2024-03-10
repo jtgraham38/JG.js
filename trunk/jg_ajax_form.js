@@ -90,6 +90,12 @@ function jg_apply_ajax_post(){
                 //call response handler function
                 const handler = eval(form.getAttribute(JG_AJAX_RESPONSE_HANDLER_ATTRNAME))
                 if (handler && typeof handler === 'function') handler(event, data)
+
+                //if the form was submitted by ajax, refresh the honeypot inputs
+                if (window.JG_HONEYPOT_KEY && form.classList.contains(JG_HONEYPOT_FORM_CLASSNAME)){
+                    inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
+                    jg_add_honeypot_input_copies(form, inputs)
+                }
             }
         });
 
