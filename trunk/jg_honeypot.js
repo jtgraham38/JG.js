@@ -2,11 +2,12 @@
 window.jg_js[window.JG_HONEYPOT_KEY] = true
 
 //define constants
-const JG_HONEYPOT_DIVERTER_STRING = generate_random_string(12) //string to append to the front of inputs to divert bots from detecting honeypots
+const JG_HONEYPOT_DIVERTER_STRING = jg_generate_random_string(12) //string to append to the front of inputs to divert bots from detecting honeypots
 const JG_HONEYPOT_CLASSNAME = "jg_honeypot"                    //classname to hide honeypot inputs
 const JG_HONEYPOT_FORM_CLASSNAME = "jg_honeypot_form"          //classname applied to forms honeypot inputs should be added to
 const JG_HONEYPOT_GOOD_INPUT_MARKER = "jg_honeypot_good_input" //class automatically applied to inputs that were renamed so we know to reset their names on form submit
 const JG_HONEYPOT_STATUS_INPUT = "jg_honeypot_suspects_bot"             //name of the input added automatically that tells whether a honeypot input was filled out, check this on your server!
+const JG_HONEYPOT_SUBMIT_KEY = "jg_honeypot_submit"                        //key to mark that the form should be submitted by honeypot
 
 const JG_HONEYPOT_STYLE = `
 .${JG_HONEYPOT_CLASSNAME} {
@@ -71,7 +72,6 @@ function jg_add_honeypots(){
         //add onsubmit event listener to form to...
         form.addEventListener('submit', (event)=>{
             event.preventDefault()
-            console.log("honeypot event handler!")
             
             let suspects_bot = false //whether the honeypot check failed
             let inputs = Array.from(form.querySelectorAll('input[type="email"], input[type="text"]'))
@@ -108,12 +108,22 @@ function jg_add_honeypots(){
 
 
             //submit the form
-            form.submit()
-        })
+            if (!event.jg_submitted && event.jg_form_submit == JG_HONEYPOT_SUBMIT_KEY){
+                console.log("honeypot form submit")
+                event.jg_submitted = true
+                //event.target.submit()
+            }
+
+        }, false)
+
+        //during the capture phase, mark that the form should be submitted by honeypot (this will fire before ajax and stripe due to the event listener order in jg.js)
+        form.addEventListener('submit', (event)=>{
+            event.jg_form_submit = JG_HONEYPOT_SUBMIT_KEY
+        }, true)
     })
 }
 
-function generate_random_string(length) {
+function jg_generate_random_string(length) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let random_string = '';
     

@@ -7,6 +7,7 @@ const JG_STRIPE_PUBLIC_KEY_VARNAME = "jg_stripe_public_key"
 const JG_PAYMENT_FORM_ID = "jg_checkout_form"
 const JG_CARDHOLDER_NAME_INPUT_ID = "jg_card_holder_name_input"
 const JG_PAYMENT_METHOD_ID_INPUT_ID = "jg_payment_method_id_input"
+const JG_STRIPE_SUBMIT_KEY = "jg_form_submit"
 
 
 //this init function is called in jg.js, do not call it directly!
@@ -63,7 +64,16 @@ function jg_create_stripe_card_input(){
         }
 
         //submit the form
-        event.target.submit()
+        if (!event.jg_submitted && event.jg_form_submit == JG_STRIPE_SUBMIT_KEY){
+            event.jg_submitted = true
+            console.log("stripe form submit")
+            //event.target.submit()
+        }
     });
+
+    //during the capture phase, mark that the form should be submitted by stripe (this will fire after honeypot and before ajax due to the event listener order in jg.js)
+    payment_form.addEventListener('submit', (event)=>{
+        event.jg_form_submit = JG_STRIPE_SUBMIT_KEY
+    }, true)
 }
 

@@ -3,6 +3,7 @@ window.jg_js[window.JG_AJAX_FORM_KEY] = true
 //define constants
 const JG_AJAX_METHOD_ATTR_NAME = 'jg_ajax_method' //attribute used to specify the method of an ajax form
 const JG_AJAX_RESPONSE_HANDLER_ATTRNAME = 'jg_ajax_response_handler' //attribute used to specify a function to handle the response from an ajax request
+const JG_AJAX_SUBMIT_KEY = "jg_ajax_form"
 
 //animation used by the default loader
 
@@ -85,7 +86,17 @@ function jg_apply_ajax_post(){
             //call response handler function
             const handler = eval(form.getAttribute(JG_AJAX_RESPONSE_HANDLER_ATTRNAME))
             if (handler && typeof handler === 'function') handler(event, data)
+
+            if (!event.jg_submitted && event.jg_form_submit == JG_AJAX_SUBMIT_KEY){
+                event.jg_submitted = true
+                console.log("ajax form submit")
+            }
         });
+
+        //during the capture phase, mark that the form should be submitted by ajax (this will fire after honeypot and stripe due to the event listener order in jg.js)
+        form.addEventListener('submit', (event)=>{
+            event.jg_form_submit = JG_AJAX_SUBMIT_KEY
+        }, true)
     });
 }
 

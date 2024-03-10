@@ -2,7 +2,7 @@
 
 
 //define constants
-const JG_HONEYPOT_DIVERTER_STRING = generate_random_string(12) //string to append to the front of inputs to divert bots from detecting honeypots
+const JG_HONEYPOT_DIVERTER_STRING = jg_generate_random_string(12) //string to append to the front of inputs to divert bots from detecting honeypots
 const JG_HONEYPOT_CLASSNAME = "jg_honeypot"                    //classname to hide honeypot inputs
 const JG_HONEYPOT_FORM_CLASSNAME = "jg_honeypot_form"          //classname applied to forms honeypot inputs should be added to
 const JG_HONEYPOT_GOOD_INPUT_MARKER = "jg_honeypot_good_input" //class automatically applied to inputs that were renamed so we know to reset their names on form submit
@@ -110,7 +110,7 @@ function jg_add_honeypots(){
     })
 }
 
-function generate_random_string(length) {
+function jg_generate_random_string(length) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let random_string = '';
     
