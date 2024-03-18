@@ -170,7 +170,7 @@ This script automates the process of creating Stripe card payment inputs on you 
 jg_stripe_charge_input.js will use this value to create the payment field.  Then, on your payment form, begin by adding the *jg_checkout_form* class to the form.  Then, add a div with the id set to *jg_stripe_card_container* whereever you would like the payment field to appear within that form.  Finally, ensure you add a text input with the id set to *jg_card_holder_name_input*.  The script will automatically create the card payment input inside that div when the page renders.
 
 ```html
-<form action="/" method="POST" class="jg_checkout_form">
+<form action="/" method="POST" id="jg_checkout_form">
     
     <!-- form fields here -->
 
