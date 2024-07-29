@@ -13,7 +13,7 @@ This is an ongoing project.
 
 ## Getting Started
 
-To start using the modules in jg.js, it is crucial to include the jg.js script in your page.  It synchronizes the differnt features of this module and makes them play nicely together.  Refrain from modifying or calling any funtions in this module directly, as this could lead to undefined behavior.  After that, simply include other scripts from the jg.js module that you would like to use, and jg.js will automatically detect and call them.  Script links for inclusion are included at the bottom of the page.
+To start using the modules in jg.js, it is crucial to include the jg.js script in your page.  It synchronizes the different features of this module and makes them play nicely together.  Refrain from modifying or calling any funtions in this module directly, as this could lead to undefined behavior.  After that, simply include other scripts from the jg.js module that you would like to use, and jg.js will automatically detect and call them.  Script links for inclusion are included at the bottom of the page.
 
 ## JG Modal (jg_modal.js)
 
