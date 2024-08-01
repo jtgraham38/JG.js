@@ -12,12 +12,16 @@ const JG_MODAL_STYLE = `
     top: 0;
     right: 0;
     margin-top: 0.25rem;
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
     border: none;
     background: none;
     margin-bottom: 0;
     margin-left: 0;
     font-size: large;
+}
+
+.${JG_CLOSE_BTN_CLASSNAME}:hover {
+    color: red;
 }
 
 `   // style applied to the default modal close button
